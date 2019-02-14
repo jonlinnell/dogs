@@ -5,6 +5,8 @@ const deleteBooking = require('../helpers/bookings/deleteBooking');
 const findBookings = require('../helpers/bookings/findBookings');
 const findBookingsBySlot = require('../helpers/bookings/findBookingsBySlot');
 
+const verifyToken = require('../helpers/auth/verifyToken')
+
 router.post('/', (req, res) =>
   createBooking(req.body)
     .then(result => res.send(result))
@@ -29,7 +31,7 @@ router.get('/slot/:slotId', (req, res) =>
     .catch(error => res.status(500).send(error))
 );
 
-router.delete('/:id', (req, res) =>
+router.delete('/:id', verifyToken, (req, res) =>
   deleteBooking(req.params.id)
     .then(result => res.send(result))
     .catch(error => res.status(500).send(error))

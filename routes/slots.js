@@ -5,7 +5,9 @@ const updateSlot = require('../helpers/slots/updateSlot');
 const findSlots = require('../helpers/slots/findSlots');
 const deleteSlot = require('../helpers/slots/deleteSlot');
 
-router.post('/', (req, res) =>
+const verifyToken = require('../helpers/auth/verifyToken')
+
+router.post('/', verifyToken, (req, res) =>
   createSlot(req.body)
     .then(newSlot => res.send(newSlot))
     .catch(error => res.status(500).send(error))
@@ -23,13 +25,13 @@ router.get('/:id', (req, res) =>
     .catch(error => res.status(500).send(error))
 );
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', verifyToken, (req, res) => {
   deleteSlot(req.params.id)
     .then(result => res.send(result))
     .catch(error => res.status(500).send(error));
 });
 
-router.put('/:id', (req, res) =>
+router.put('/:id', verifyToken, (req, res) =>
   updateSlot(req.params.id, req.body)
     .then(updatedSlot => res.send(updatedSlot))
     .catch(error => res.status(500).send(error))
