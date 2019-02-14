@@ -1,12 +1,16 @@
 const Booking = require('../../models/booking.model');
 
-module.exports = request => new Promise((resolve, reject) => {
-  const newBooking = new Booking(request);
+const findSlots = require('../../helpers/slots/findSlots');
 
-  newBooking
-    .save((err, result) => (
-      err
-        ? reject(err)
-        : resolve(result)
-    ));
-});
+module.exports = request =>
+  new Promise((resolve, reject) => {
+    const newBooking = new Booking(request);
+
+    findSlots(request.slot).then(slot => {
+      if (slot) {
+        newBooking.save((err, result) => (err ? reject(err) : resolve(result)));
+      } else {
+        reject(Error('No such slot.'));
+      }
+    });
+  });
