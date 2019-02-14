@@ -13,8 +13,13 @@ app.use(bodyParser.json());
 app.use('/slots', slots);
 app.use('/bookings', bookings);
 
-mongoose.connect('mongodb://localhost/slotbook', { useNewUrlParser: true })
+mongoose
+  .connect('mongodb://localhost/slotbook', { useNewUrlParser: true })
   .then(() => console.log('DB connection established.'))
-  .catch((err) => { throw err; });
+  .catch(err => {
+    throw err;
+  });
 
-app.listen(3000, () => { console.log('Listening...'); });
+app.listen(3000, () => {
+  console.log('Listening...');
+});
