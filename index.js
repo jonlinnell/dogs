@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -51,6 +52,7 @@ mongoose
       } else {
         console.log('DB connection established.');
       }
+      return false;
     });
   })
   .catch(err => {

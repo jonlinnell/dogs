@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const Booking = require('../../models/booking.model');
 
 const findSlots = require('../../helpers/slots/findSlots');
