@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const Booking = mongoose.model('Booking', {
+const { Schema } = mongoose;
+
+const BookingSchema = {
   name: {
     type: String,
     required: true,
@@ -15,10 +17,9 @@ const Booking = mongoose.model('Booking', {
     },
     unique: true,
   },
-  slot: {
-    type: String,
-    required: true,
-  },
-});
+  slot: { type: Schema.Types.ObjectId, ref: 'Slot' },
+};
+
+const Booking = mongoose.model('Booking', BookingSchema);
 
 module.exports = Booking;

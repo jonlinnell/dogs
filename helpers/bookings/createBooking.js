@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Booking = require('../../models/booking.model');
 
 const findSlots = require('../../helpers/slots/findSlots');
@@ -8,7 +10,19 @@ module.exports = request =>
 
     findSlots(request.slot).then(slot => {
       if (slot) {
-        newBooking.save((err, result) => (err ? reject(err) : resolve(result)));
+        newBooking.save((err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            slot.bookings.push(newBooking._id);
+            slot.save(slotSaveErr => {
+              if (slotSaveErr) {
+                reject(slotSaveErr);
+              }
+            });
+            resolve(result);
+          }
+        });
       } else {
         reject(Error('No such slot.'));
       }
