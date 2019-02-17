@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const permissions = require('./constants/permissions');
 
@@ -16,6 +17,7 @@ const { DB_HOST, DB_NAME, DEFAULT_ADMIN_PW } = process.env;
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/auth', auth);
