@@ -5,7 +5,7 @@ const deleteBooking = require('../helpers/bookings/deleteBooking');
 const findBookings = require('../helpers/bookings/findBookings');
 const findBookingsBySlot = require('../helpers/bookings/findBookingsBySlot');
 
-const verifyToken = require('../helpers/auth/verifyToken')
+const verifyToken = require('../helpers/auth/verifyToken');
 
 router.post('/', (req, res) =>
   createBooking(req.body)

@@ -5,7 +5,7 @@ const updateSlot = require('../helpers/slots/updateSlot');
 const findSlots = require('../helpers/slots/findSlots');
 const deleteSlot = require('../helpers/slots/deleteSlot');
 
-const verifyToken = require('../helpers/auth/verifyToken')
+const verifyToken = require('../helpers/auth/verifyToken');
 
 router.post('/', verifyToken, (req, res) =>
   createSlot(req.body)
