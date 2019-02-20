@@ -12,7 +12,7 @@ const Capacity = styled.p`
 
   font-size: 0.9rem;
 
-  text-decoration: ${({ full }) => (full ? 'strikethrough' : 'none')};
+  text-decoration: ${({ full }) => (full ? 'line-through' : 'none')};
 `;
 
 const Slot = ({
@@ -23,20 +23,27 @@ const Slot = ({
   bookings,
   className,
   handleSelect,
-}) => (
-  <li className={className}>
-    <SlotButton onClick={e => handleSelect(e, _id)}>
-      <Times>
-        {moment(start).format('HH mm')}
-        &nbsp;&mdash;&nbsp;
-        {moment(end).format('HH mm')}
-      </Times>
-      <Capacity full={bookings.length >= capacity}>
-        {`${bookings.length || 0} / ${capacity}`}
-      </Capacity>
-    </SlotButton>
-  </li>
-);
+}) => {
+  const full = bookings.length >= capacity;
+
+  return (
+    <li className={className}>
+      <SlotButton
+        full={full}
+        onClick={e => (full ? null : handleSelect(e, _id))}
+      >
+        <Times>
+          {moment(start).format('HH mm')}
+          &nbsp;&mdash;&nbsp;
+          {moment(end).format('HH mm')}
+        </Times>
+        <Capacity full={full}>
+          {`${bookings.length || 0} / ${capacity}`}
+        </Capacity>
+      </SlotButton>
+    </li>
+  );
+};
 
 const StyledSlot = styled(Slot)`
   margin: 12px 0;
@@ -60,8 +67,10 @@ const SlotButton = styled.button`
   color: ${({ theme }) => theme.colours.primary};
 
   &:hover {
-    color: ${({ theme }) => theme.colours.background};
-    background-color: ${({ theme }) => theme.colours.primary};
+    color: ${({ theme, full }) =>
+      full ? theme.colours.primary : theme.colours.background};
+    background-color: ${({ theme, full }) =>
+      full ? theme.colours.background : theme.colours.primary};
   }
 
   display: flex;
