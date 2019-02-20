@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import axios from 'axios';
 
 import Input from './Input';
+import Button from './Button';
 import InputLabel from './InputLabel';
 import InputError from './InputError';
 
@@ -102,9 +103,9 @@ export default class BookingForm extends Component {
             </InputLabel>
             <input type="hidden" name="slot" value={slot} />
             {hasError ? <InputError>{error}</InputError> : null}
-            <button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
               Submit
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
