@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import axios from 'axios';
+import { get } from 'lodash';
 
 import Input from './Input';
 import Button from './Button';
@@ -30,7 +31,18 @@ export default class BookingForm extends Component {
   }
 
   handleError(error) {
-    console.log(error);
+    const message = get(error, 'response.data.errmsg', 'Unknown Error');
+
+    if (
+      /duplicate key error collection: slotbook.bookings index: email_1/.test(
+        message
+      )
+    ) {
+      this.setState({
+        error: 'This email address has already been registered.',
+        hasError: true,
+      });
+    }
   }
 
   render() {
@@ -42,13 +54,18 @@ export default class BookingForm extends Component {
         initialValues={{ name: '', email: '', slot }}
         validate={values => {
           let errors = {};
+          if (!values.name) {
+            errors.name = 'Please enter your name.';
+          }
+
           if (!values.email) {
-            errors.email = 'Required';
+            errors.email = 'Your lboro.ac.uk email address is required.';
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
             errors.email = 'Invalid email address';
           }
+
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -102,7 +119,7 @@ export default class BookingForm extends Component {
               </InputError>
             </InputLabel>
             <input type="hidden" name="slot" value={slot} />
-            {hasError ? <InputError>{error}</InputError> : null}
+            <InputError>{error}</InputError>
             <Button type="submit" disabled={isSubmitting}>
               Submit
             </Button>
