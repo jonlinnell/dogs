@@ -30,15 +30,18 @@ export default class SlotList extends Component {
     };
 
     this.setSelectedSlot = this.setSelectedSlot.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
     this.fetchInterval = setInterval(this.fetchData(), 10000);
+    document.addEventListener('keydown', this.handleKeyPress, false);
   }
 
   componentWillUnmount() {
     clearInterval(this.fetchInterval);
+    document.removeEventListener('keydown', this.handleKeyPress, false);
   }
 
   fetchData() {
@@ -66,6 +69,15 @@ export default class SlotList extends Component {
 
   setSelectedSlot(e, id = null) {
     this.setState({ selectedSlot: id });
+    if (id === null) {
+      this.fetchData();
+    }
+  }
+
+  handleKeyPress(e) {
+    if (e.keyCode === 27) {
+      this.setSelectedSlot(null);
+    }
   }
 
   render() {

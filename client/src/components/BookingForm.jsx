@@ -46,7 +46,7 @@ export default class BookingForm extends Component {
   }
 
   render() {
-    const { slot } = this.props;
+    const { slot, handleSelect } = this.props;
     const { hasError, error } = this.state;
 
     return (
@@ -74,6 +74,7 @@ export default class BookingForm extends Component {
             .then(response => {
               console.log(response);
               setSubmitting(false);
+              handleSelect();
             })
             .catch(error => {
               this.handleError(error);
