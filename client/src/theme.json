@@ -2,6 +2,7 @@
   "colours": {
     "dark": "#46494C",
     "primary": "#BFD7EA",
-    "primaryAlternate": "#C8D3D5"
+    "primaryAlternate": "#C8D3D5",
+    "error": "#BF0040"
   }
 }

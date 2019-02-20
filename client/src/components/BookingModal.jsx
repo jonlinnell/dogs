@@ -29,7 +29,9 @@ const Modal = styled.div`
 const BookingModal = ({ visible, slot, handleSelect }) => {
   return (
     <Modal visible={visible}>
-      <BookingForm handleSelect={handleSelect} slot={slot} />
+      {visible && slot ? (
+        <BookingForm handleSelect={handleSelect} slot={slot} />
+      ) : null}
     </Modal>
   );
 };

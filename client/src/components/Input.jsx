@@ -6,7 +6,7 @@ const Input = styled.input`
   border: 1px solid ${({ theme: { colours } }) => colours.dark};
   border-radius: 3px;
   padding: 12px;
-  margin: 1rem;
+  margin-top: 12px;
   outline: none;
   width: ${({ width }) => (width === 'wide' ? '100%' : 'auto')};
 `;
