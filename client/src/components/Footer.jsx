@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const StyledFooter = styled.footer`
   font-size: 0.7rem;
@@ -7,7 +8,9 @@ const StyledFooter = styled.footer`
 
 const Footer = () => (
   <StyledFooter>
-    &copy; 2018 Jon Linnell, Loughborough University London
+    &copy;&nbsp;
+    {moment().format('YYYY')}
+    &nbsp;Jon Linnell, Loughborough University London
   </StyledFooter>
 );
 
