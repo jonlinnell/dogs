@@ -1,6 +1,7 @@
 {
   "colours": {
-    "background": "#46494C",
-    "primary": "#BFD7EA"
+    "dark": "#46494C",
+    "primary": "#BFD7EA",
+    "primaryAlternate": "#C8D3D5"
   }
 }

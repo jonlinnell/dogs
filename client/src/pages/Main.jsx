@@ -3,6 +3,7 @@ import React from 'react';
 import SlotList from '../components/SlotList';
 import PageTitle from '../components/PageTitle';
 import Section from '../components/Section';
+import Footer from '../components/Footer';
 
 const Main = () => (
   <Section>
@@ -12,6 +13,7 @@ const Main = () => (
       🐶 ❤️
     </span>
     <SlotList />
+    <Footer />
   </Section>
 );
 

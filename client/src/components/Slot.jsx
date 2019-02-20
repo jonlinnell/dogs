@@ -25,7 +25,7 @@ const Slot = ({
   handleSelect,
 }) => (
   <li className={className}>
-    <SlotButton onClick={() => handleSelect(_id)}>
+    <SlotButton onClick={e => handleSelect(e, _id)}>
       <Times>
         {moment(start).format('HH mm')}
         &nbsp;&mdash;&nbsp;

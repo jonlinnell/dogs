@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Slot from './Slot';
+import BookingModal from './BookingModal';
 
 import SectionTitle from './SectionTitle';
 
@@ -29,7 +30,6 @@ export default class SlotList extends Component {
     };
 
     this.setSelectedSlot = this.setSelectedSlot.bind(this);
-    this.clearSelectedSlot = this.clearSelectedSlot.bind(this);
   }
 
   componentDidMount() {
@@ -64,12 +64,8 @@ export default class SlotList extends Component {
       );
   }
 
-  setSelectedSlot(id) {
+  setSelectedSlot(e, id = null) {
     this.setState({ selectedSlot: id });
-  }
-
-  clearSelectedSlot(e) {
-    this.setState({ selectedSlot: null });
   }
 
   render() {
@@ -77,7 +73,11 @@ export default class SlotList extends Component {
 
     return (
       <div>
-        <p>{selectedSlot}</p>
+        <BookingModal
+          visible={!!selectedSlot}
+          slot={selectedSlot}
+          handleSelect={this.setSelectedSlot}
+        />
         <SectionTitle>Book a slot...</SectionTitle>
         {hasError ? (
           <div>
