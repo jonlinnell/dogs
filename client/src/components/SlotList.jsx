@@ -7,7 +7,7 @@ import BookingModal from './BookingModal';
 
 import SectionTitle from './SectionTitle';
 
-import { host } from '../../config';
+const { API } = process.env;
 
 const StyledSlotList = styled.ul`
   list-style-type: none;
@@ -52,7 +52,7 @@ export default class SlotList extends Component {
     });
 
     axios
-      .get(`${host}/slots`)
+      .get(`${API}/slots`)
       .then(response =>
         this.setState({
           slots: response.data,

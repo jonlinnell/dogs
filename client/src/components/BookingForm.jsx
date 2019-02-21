@@ -12,7 +12,7 @@ import { NotificationsConsumer } from './NotificationsContext';
 
 import readableError from '../helpers/readableError';
 
-import { host } from '../../config';
+const { API } = process.env;
 
 const Form = styled.form`
   width: 320px;
@@ -46,7 +46,7 @@ const BookingForm = ({ slot, handleSelect }) => (
         }}
         onSubmit={(values, { setSubmitting }) => {
           axios
-            .post(`${host}/bookings`, values)
+            .post(`${API}/bookings`, values)
             .then(response => {
               setSubmitting(false);
               handleSelect();
