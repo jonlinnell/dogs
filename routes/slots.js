@@ -19,6 +19,12 @@ router.get('/', (req, res) =>
     .catch(error => res.status(500).send(error))
 );
 
+router.get('/details', verifyToken, (req, res) =>
+  findSlots(null, true)
+    .then(slots => res.send(slots))
+    .catch(error => res.status(500).send(error))
+);
+
 router.get('/:id', (req, res) =>
   findSlots(req.params.id)
     .then(slot => res.send(slot))

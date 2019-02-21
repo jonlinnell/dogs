@@ -1,14 +1,18 @@
 const Slot = require('../../models/slot.model');
 
-module.exports = id =>
+module.exports = (id, withDetails) =>
   new Promise((resolve, reject) => {
+    let query;
+
     if (id) {
-      Slot.findById(id)
-        .populate('bookings')
-        .exec((error, result) => (error ? reject(error) : resolve(result)));
+      query = Slot.findById(id);
     } else {
-      Slot.find()
-        .populate('bookings')
-        .exec((error, result) => (error ? reject(error) : resolve(result)));
+      query = Slot.find();
     }
+
+    if (withDetails) {
+      query.populate('bookings');
+    }
+
+    query.exec((error, result) => (error ? reject(error) : resolve(result)));
   });
