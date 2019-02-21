@@ -10,6 +10,8 @@ import InputError from './InputError';
 
 import { NotificationsConsumer } from './NotificationsContext';
 
+import readableError from '../helpers/readableError';
+
 import { host } from '../../config';
 
 const Form = styled.form`
@@ -56,7 +58,7 @@ const BookingForm = ({ slot, handleSelect }) => (
             .catch(error => {
               setSubmitting(false);
               handleSelect();
-              addNotification('Summat done gone wrong', 'error');
+              addNotification(readableError(error), 'error');
             });
         }}
       >
