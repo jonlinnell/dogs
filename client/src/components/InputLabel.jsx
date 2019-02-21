@@ -6,8 +6,6 @@ const InputLabel = styled.label`
   justify-items: center;
   align-items: center;
 
-  margin-bottom: 16px;
-
   background: none;
   color: ${({ theme: { colours } }) => colours.dark};
 `;

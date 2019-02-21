@@ -90,7 +90,8 @@ export default class SlotList extends Component {
           slot={selectedSlot}
           handleSelect={this.setSelectedSlot}
         />
-        <SectionTitle>Book a slot...</SectionTitle>
+        <SectionTitle noMarginBottom>Available slots</SectionTitle>
+        <p>Tap a slot to book</p>
         {hasError ? (
           <div>
             <h5>Error Zone</h5>

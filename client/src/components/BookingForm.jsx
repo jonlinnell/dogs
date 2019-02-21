@@ -114,9 +114,17 @@ export default class BookingForm extends Component {
                 </InputLabel>
                 <input type="hidden" name="slot" value={slot} />
                 <InputError>{error}</InputError>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button
+                  type="submit"
+                  style={{ marginBottom: '30vh' }}
+                  disabled={isSubmitting}
+                >
                   Submit
                 </Button>
+                <p>
+                  This data is only used to verify your booking. Data will be
+                  erased after the event.
+                </p>
               </Form>
             )}
           </Formik>

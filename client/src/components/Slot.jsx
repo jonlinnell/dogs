@@ -4,13 +4,14 @@ import moment from 'moment';
 
 const Times = styled.p`
   margin: 6px;
+  font-weight: 300;
 `;
 
 const Capacity = styled.p`
   margin: 6px;
   margin-left: auto;
 
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 
   text-decoration: ${({ full }) => (full ? 'line-through' : 'none')};
 `;
