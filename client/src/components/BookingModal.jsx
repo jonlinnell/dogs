@@ -12,9 +12,9 @@ const Modal = styled.div`
   width: 100vw;
   z-index: 1;
 
-  transition: visibility 0.3s linear;
+  transition: opacity 0.1s linear;
 
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'all' : 'none')};
 
   background-color: ${({ theme: { colours } }) => colours.primaryAlternate};

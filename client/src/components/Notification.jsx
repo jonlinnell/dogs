@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { NotificationsConsumer } from './NotificationsContext';
 
@@ -14,11 +14,29 @@ const CloseButton = styled.button`
   font-weight: 400;
 `;
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
 const StyledNotification = styled.li`
-  background-color: ${({ theme: { colours } }) => colours.primary};
-  color: ${({ theme: { colours } }) => colours.dark};
+  background-image: ${({ type, theme: { notificationBackgrounds } }) =>
+    notificationBackgrounds[type]};
+
+  font-size: 0.9rem;
+  color: #fcfcfc;
   padding: 8px;
   border-radius: 6px;
+  margin-bottom: 6px;
+
+  opacity: 0;
+  animation: ${fadeIn} 0.2s ease-in both;
+  animation-delay: 1s;
 
   display: flex;
   flex-direction: row;
@@ -28,8 +46,8 @@ const StyledNotification = styled.li`
 const Notification = ({ message, id, type }) => (
   <NotificationsConsumer>
     {({ clearNotification }) => (
-      <StyledNotification>
-        {JSON.stringify(message)}
+      <StyledNotification type={type}>
+        {message}
         <CloseButton type="button" onClick={() => clearNotification(id)}>
           X
         </CloseButton>

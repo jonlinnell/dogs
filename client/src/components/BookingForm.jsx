@@ -61,17 +61,17 @@ export default class BookingForm extends Component {
               axios
                 .post(`${host}/bookings`, values)
                 .then(response => {
-                  console.log(response);
                   setSubmitting(false);
                   handleSelect();
-                  addNotification({
-                    message: 'Booking successful.',
-                    type: 'success',
-                  });
+                  addNotification(
+                    "Booking successful! We'll send you a confirmation email before March 7th.",
+                    'success'
+                  );
                 })
                 .catch(error => {
                   setSubmitting(false);
-                  addNotification({ message: 'error', type: 'success' });
+                  handleSelect();
+                  addNotification('Summat done gone wrong', 'error');
                 });
             }}
           >

@@ -16,15 +16,15 @@ const Main = () => (
     <span role="img" aria-label="dog love">
       🐶 ❤️
     </span>
-    <NotificationList>
-      <NotificationsConsumer>
-        {({ notifications }) =>
-          notifications.map(notification => (
+    <NotificationsConsumer>
+      {({ notifications }) => (
+        <NotificationList>
+          {notifications.map(notification => (
             <Notification {...notification} key={notification.id} />
-          ))
-        }
-      </NotificationsConsumer>
-    </NotificationList>
+          ))}
+        </NotificationList>
+      )}
+    </NotificationsConsumer>
     <SlotList />
     <Footer />
   </Section>
