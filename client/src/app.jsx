@@ -8,14 +8,18 @@ import Main from './pages/Main';
 import GlobalStyles from './helpers/GlobalStyle';
 import theme from './theme.json';
 
+import { NotificationsProvider } from './components/NotificationsContext';
+
 const Test = () => (
   <ThemeProvider theme={theme}>
-    <React.Fragment>
-      <GlobalStyles />
-      <Router>
-        <Main path="/" />
-      </Router>
-    </React.Fragment>
+    <NotificationsProvider>
+      <React.Fragment>
+        <GlobalStyles />
+        <Router>
+          <Main path="/" />
+        </Router>
+      </React.Fragment>
+    </NotificationsProvider>
   </ThemeProvider>
 );
 
