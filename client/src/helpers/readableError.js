@@ -7,7 +7,7 @@ const readbleError = error => {
       const { errmsg } = error.response.data;
 
       if (/email_1 dup key/.test(errmsg)) {
-        return "You're already booked! Contact the Student Services Office if you need to check your booking.";
+        return "You're already booked! You can check your booking on the main page.";
       }
     } else if (typeof error.response.data.errors === 'object') {
       return "Looks like that email address isn't valid. Did you use a lboro.ac.uk email address?";

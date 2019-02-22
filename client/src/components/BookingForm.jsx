@@ -23,13 +23,11 @@ const BookingForm = ({ slot, handleSelect }) => {
     const { name, email, slot } = status.content;
     return (
       <ModalContent>
-        <SectionTitle>Booking successful</SectionTitle>
+        <SectionTitle noMarginTop>Booking successful</SectionTitle>
         <p>
           {name} ({email})
         </p>
-        <p>
-          registered for slot
-        </p>
+        <p>registered for slot</p>
         <p>
           {moment(slot.start).format('HH mm')}
           &nbsp;&mdash;&nbsp;
@@ -41,7 +39,7 @@ const BookingForm = ({ slot, handleSelect }) => {
   } else if (status.type === 'error') {
     return (
       <ModalContent>
-        <SectionTitle>Error</SectionTitle>
+        <SectionTitle noMarginTop>Error</SectionTitle>
         <p>{readableError(status.content)}</p>
         <CloseButton handleClose={handleSelect} />
       </ModalContent>

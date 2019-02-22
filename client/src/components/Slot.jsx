@@ -70,9 +70,9 @@ const SlotButton = styled.button`
 
   &:hover {
     color: ${({ theme, full }) =>
-      full ? theme.colours.primary : theme.colours.background};
+      full ? theme.colours.primary : theme.colours.dark};
     background-color: ${({ theme, full }) =>
-      full ? theme.colours.background : theme.colours.primary};
+      full ? theme.colours.dark : theme.colours.primary};
   }
 
   display: flex;

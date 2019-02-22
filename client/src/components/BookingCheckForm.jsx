@@ -21,7 +21,7 @@ const BookingCheckForm = ({ setModalVisibility }) => {
     const { name, slot } = status.content;
     return (
       <ModalContent>
-        <SectionTitle>{name}</SectionTitle>
+        <SectionTitle noMarginTop>{name}</SectionTitle>
         <p>
           You are registered for slot:
         </p>
@@ -36,7 +36,7 @@ const BookingCheckForm = ({ setModalVisibility }) => {
   } else if (status.type === 'error' || status.type === 'empty') {
     return (
       <ModalContent>
-        <SectionTitle>Booking not found</SectionTitle>
+        <SectionTitle noMarginTop>Booking not found</SectionTitle>
         <p>
           Make sure you entered your email address properly (and that you booked
           a slot!)
