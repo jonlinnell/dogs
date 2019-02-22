@@ -24,12 +24,17 @@ const {
   NODE_ENV = 'development',
   SSL_KEY,
   SSL_CERT,
+  CORS_ALLOWED_ORIGIN,
 } = process.env;
 
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: CORS_ALLOWED_ORIGIN,
+  })
+);
 app.use(bodyParser.json());
 
 app.use('/auth', auth);
