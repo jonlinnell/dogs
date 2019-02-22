@@ -9,8 +9,10 @@ const readbleError = error => {
       if (/email_1 dup key/.test(errmsg)) {
         return "You're already booked! Contact the Student Services Office if you need to check your booking.";
       }
+    } else if (typeof error.response.data.errors === 'object') {
+      return 'Validation error. Did you use a lboro.ac.uk email address?';
     }
-    return 'erm';
+    return 'Erm...';
   } else if (error.request) {
     // The request was made but no response was received
     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
