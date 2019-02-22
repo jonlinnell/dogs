@@ -10,6 +10,14 @@ import theme from './theme.json';
 
 import { NotificationsProvider } from './components/NotificationsContext';
 
+const isIE = () => {
+  const ua = window.navigator.userAgent; //Check the userAgent property of the window.navigator object
+  const msie = ua.indexOf('MSIE '); // IE 10 or older
+  const trident = ua.indexOf('Trident/'); //IE 11
+
+  return msie > 0 || trident > 0;
+};
+
 const App = () => (
   <ThemeProvider theme={theme}>
     <NotificationsProvider>
@@ -23,4 +31,12 @@ const App = () => (
   </ThemeProvider>
 );
 
-render(<App />, document.getElementById('root'));
+if (isIE()) {
+  const message = 'This is an old, unsupported browser.\nOpen this site on Google Chrome, or on your phone.'
+  document.getElementById('root').innerHTML = `<h1>${message}</h1>`;
+  alert(
+    message
+  );
+} else {
+  render(<App />, document.getElementById('root'));
+}
