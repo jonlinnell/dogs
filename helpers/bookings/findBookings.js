@@ -4,11 +4,11 @@ module.exports = id =>
   new Promise((resolve, reject) => {
     if (id) {
       Booking.findById(id)
-        .populate()
+        .populate('slot')
         .exec((error, result) => (error ? reject(error) : resolve(result)));
     } else {
       Booking.find()
-        .populate()
+        .populate('slot')
         .exec((error, result) => (error ? reject(error) : resolve(result)));
     }
   });
