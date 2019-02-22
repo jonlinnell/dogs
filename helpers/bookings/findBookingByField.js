@@ -13,5 +13,5 @@ module.exports = (field, value, caseInsensitive) =>
 
     Booking.find({ [field]: condition })
       .populate('slot')
-      .exec((error, result) => (error ? reject(error) : resolve(result)));
+      .exec((error, result) => (error ? reject(error) : resolve(result[0])));
   });
