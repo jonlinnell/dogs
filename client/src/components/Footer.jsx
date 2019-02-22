@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 const StyledFooter = styled.footer`
+  margin: 24px 0;
   font-size: 0.7rem;
 `;
 
