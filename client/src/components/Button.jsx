@@ -7,16 +7,15 @@ const Button = styled.button`
   border-style: solid;
   border-color: ${({ theme: { colours } }) => colours.dark};
   border-radius: 3px;
-  padding: ${({ isDefault }) => (isDefault ? '12px' : '8px')};
+  padding: ${({ isDefault }) => (isDefault ? '8px 12px' : '6px 8px')};
   margin-top: 12px;
-  outline: none;
 
   transition-duration: 0.2s;
 
   &:hover {
     background-color: ${({ theme: { colours } }) => colours.dark};
     color: ${({ theme: { colours } }) => colours.primary};
-    border: 2px solid ${({ theme: { colours } }) => colours.primary};
+    border-color: ${({ theme: { colours } }) => colours.primary};
   }
 `;
 
