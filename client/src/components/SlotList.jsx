@@ -91,7 +91,7 @@ export default class SlotList extends Component {
     const { fetching, selectedSlot, hasError, error, slots } = this.state;
 
     return (
-      <div>
+      <section>
         <Modal visible={!!selectedSlot}>
           <BookingForm
             slot={selectedSlot}
@@ -118,7 +118,7 @@ export default class SlotList extends Component {
             ))}
           </StyledSlotList>
         )}
-      </div>
+      </section>
     );
   }
 }

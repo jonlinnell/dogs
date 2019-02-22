@@ -2,20 +2,26 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   background: none;
-  color: ${({ theme: { colours } }) => colours.dark};
-  border-width: ${({ isDefault }) => (isDefault ? '2px' : '1px')};
-  border-style: solid;
-  border-color: ${({ theme: { colours } }) => colours.dark};
-  border-radius: 3px;
+  color: ${({ dark, theme: { colours } }) =>
+    dark ? colours.primary : colours.dark};
   padding: ${({ isDefault }) => (isDefault ? '8px 12px' : '6px 8px')};
+  border-width: ${({ isDefault }) => (isDefault ? '2px' : '1px')};
+  font-size: ${({ isDefault }) => (isDefault ? '1.1rem' : '0.9rem')};
+  border-color: ${({ dark, theme: { colours } }) =>
+    dark ? colours.primary : colours.dark};
+  border-style: solid;
+  border-radius: 3px;
   margin-top: 12px;
 
   transition-duration: 0.2s;
 
+  outline: none;
+
   &:hover {
-    background-color: ${({ theme: { colours } }) => colours.dark};
-    color: ${({ theme: { colours } }) => colours.primary};
-    border-color: ${({ theme: { colours } }) => colours.primary};
+    background-color: ${({ dark, theme: { colours } }) =>
+      dark ? colours.primary : colours.dark};
+    color: ${({ dark, theme: { colours } }) =>
+      dark ? colours.dark : colours.primary};
   }
 `;
 
