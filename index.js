@@ -32,7 +32,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: CORS_ALLOWED_ORIGIN,
+    origin: CORS_ALLOWED_ORIGIN || true,
   })
 );
 app.use(bodyParser.json());
