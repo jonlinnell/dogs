@@ -25,6 +25,14 @@ const fadeIn = keyframes`
   }
 `;
 
+const ButtonArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20vh;
+`;
+
 const FormContainer = styled.div`
   width: 90vh;
   max-width: 320px;
@@ -140,14 +148,20 @@ const BookingForm = ({ slot, handleSelect }) => {
                 </InputError>
               </InputLabel>
               <input type="hidden" name="slot" value={slot} />
-              <Button
-                type="submit"
-                style={{ marginBottom: '30vh' }}
-                disabled={isSubmitting}
-              >
-                Submit
-              </Button>
-              <p>
+              <ButtonArea>
+                <Button
+                  type="submit"
+                  style={{ marginBottom: '12px' }}
+                  disabled={isSubmitting}
+                  isDefault
+                >
+                  Submit
+                </Button>
+                <Button type="button" onClick={handleSelect}>
+                  Cancel
+                </Button>
+              </ButtonArea>
+              <p style={{ fontSize: '0.9rem' }}>
                 This data is only used to verify your booking. Data will be
                 erased after the event.
               </p>
