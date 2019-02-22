@@ -53,12 +53,18 @@ export default class SlotList extends Component {
 
     axios
       .get(`${API}/slots`)
-      .then(response =>
+      .then(response => {
+        const sortedSlots = response.data;
+
+        if (sortedSlots.length > 0) {
+          sortedSlots.sort((a, b) => (a.start > b.start ? 1 : -1));
+        }
+
         this.setState({
           slots: response.data,
           fetching: false,
-        })
-      )
+        });
+      })
       .catch(error =>
         this.setState({
           hasError: true,
