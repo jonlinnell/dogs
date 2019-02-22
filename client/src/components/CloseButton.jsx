@@ -13,7 +13,7 @@ const CloseButton = styled.button`
   color: ${({ theme: { colours } }) => colours.dark};
 `;
 
-export default ({ handleClose, children }) => (
+export default ({ handleClose }) => (
   <CloseButton type="button" onClick={handleClose}>
     X
   </CloseButton>

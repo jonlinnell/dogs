@@ -12,50 +12,44 @@ import SectionTitle from './SectionTitle';
 import ModalContent from './ModalContent';
 import ButtonArea from './ButtonArea';
 
-import readableError from '../helpers/readableError';
-
 const { API } = process.env;
 
-const BookingForm = ({ slot, handleSelect }) => {
+const BookingCheckForm = ({ setModalVisibility }) => {
   const [status, setStatus] = useState({ type: '', content: '' });
 
   if (status.type === 'success') {
-    const { name, email, slot } = status.content;
+    const { name, slot } = status.content;
     return (
       <ModalContent>
-        <SectionTitle>Booking successful</SectionTitle>
-        <p>
-          {name} ({email})
-        </p>
+        <SectionTitle>{name}</SectionTitle>
         <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
-          registered for slot
+          You are registered for slot:
         </p>
         <p>
           {moment(slot.start).format('HH mm')}
           &nbsp;&mdash;&nbsp;
           {moment(slot.end).format('HH mm')}
         </p>
-        <CloseButton handleClose={handleSelect} />
+        <CloseButton handleClose={() => setModalVisibility(false)} />
       </ModalContent>
     );
-  } else if (status.type === 'error') {
+  } else if (status.type === 'error' || status.type === 'empty') {
     return (
       <ModalContent>
-        <SectionTitle>Error</SectionTitle>
-        <p>{readableError(status.content)}</p>
-        <CloseButton handleClose={handleSelect} />
+        <SectionTitle>Booking not found</SectionTitle>
+        <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
+          Make sure you entered your email address properly (and that you booked
+          a slot!)
+        </p>
+        <CloseButton handleClose={() => setModalVisibility(false)} />
       </ModalContent>
     );
   } else {
     return (
       <Formik
-        initialValues={{ name: '', email: '', slot }}
+        initialValues={{ email: '' }}
         validate={values => {
           let errors = {};
-          if (!values.name) {
-            errors.name = 'Please enter your name.';
-          }
-
           if (!values.email) {
             errors.email = 'Your lboro.ac.uk email address is required.';
           } else if (
@@ -68,14 +62,18 @@ const BookingForm = ({ slot, handleSelect }) => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           axios
-            .post(`${API}/bookings`, values)
+            .get(`${API}/bookings/byEmail/${values.email}`)
             .then(response => {
               setSubmitting(false);
-              setStatus({ type: 'success', content: response.data });
+              if (response.data) {
+                setStatus({ type: 'success', content: response.data });
+              } else {
+                setStatus({ type: 'empty' });
+              }
             })
             .catch(error => {
               setSubmitting(false);
-              setStatus({ type: 'error', content: error });
+              setStatus({ type: 'error' });
             });
         }}
       >
@@ -90,19 +88,6 @@ const BookingForm = ({ slot, handleSelect }) => {
         }) => (
           <ModalContent>
             <form onSubmit={handleSubmit}>
-              <InputGroup style={{ marginTop: '5vh' }} htmlFor="name">
-                Your Name
-                <Input
-                  type="name"
-                  name="name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-                <InputError>
-                  {errors.name && touched.name && errors.name}
-                </InputError>
-              </InputGroup>
               <InputGroup htmlFor="email">
                 Your Lboro email address
                 <Input
@@ -116,7 +101,6 @@ const BookingForm = ({ slot, handleSelect }) => {
                   {errors.email && touched.email && errors.email}
                 </InputError>
               </InputGroup>
-              <input type="hidden" name="slot" value={slot} />
               <ButtonArea>
                 <Button
                   type="submit"
@@ -124,16 +108,12 @@ const BookingForm = ({ slot, handleSelect }) => {
                   disabled={isSubmitting}
                   isDefault
                 >
-                  Book
+                  Check
                 </Button>
-                <Button type="button" onClick={handleSelect}>
+                <Button type="button" onClick={() => setModalVisibility(false)}>
                   Cancel
                 </Button>
               </ButtonArea>
-              <p style={{ fontSize: '0.9rem' }}>
-                This data is only used to verify your booking. Data will be
-                erased after the event.
-              </p>
             </form>
           </ModalContent>
         )}
@@ -142,4 +122,4 @@ const BookingForm = ({ slot, handleSelect }) => {
   }
 };
 
-export default BookingForm;
+export default BookingCheckForm;
