@@ -6,11 +6,7 @@ import Section from '../components/Section';
 import Footer from '../components/Footer';
 import Subtitle from '../components/Subtitle';
 import Emoji from '../components/Emoji';
-import Notification from '../components/Notification';
-import NotificationList from '../components/NotificationList';
 import Link from '../components/Link';
-
-import { NotificationsConsumer } from '../components/NotificationsContext';
 
 const Main = () => (
   <Section>
@@ -20,7 +16,8 @@ const Main = () => (
       friendly and cuddly dogs.
     </Subtitle>
     <Subtitle>
-      Please book your place in advance to avoid disappointment.
+      There are only 10 places available per slot, so please book your place in
+      advance to avoid disappointment.
     </Subtitle>
     <Subtitle>LDN.017, Thursday 7th March 2019</Subtitle>
     <Subtitle>
@@ -35,15 +32,6 @@ const Main = () => (
       .
     </Subtitle>
     <Emoji>🐶 ❤️</Emoji>
-    <NotificationsConsumer>
-      {({ notifications }) => (
-        <NotificationList>
-          {notifications.map(notification => (
-            <Notification {...notification} key={notification.id} />
-          ))}
-        </NotificationList>
-      )}
-    </NotificationsConsumer>
     <SlotList />
     <Footer />
   </Section>

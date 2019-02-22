@@ -8,8 +8,6 @@ import Main from './pages/Main';
 import GlobalStyles from './helpers/GlobalStyle';
 import theme from './theme.json';
 
-import { NotificationsProvider } from './components/NotificationsContext';
-
 const isIE = () => {
   const ua = window.navigator.userAgent; //Check the userAgent property of the window.navigator object
   const msie = ua.indexOf('MSIE '); // IE 10 or older
@@ -20,14 +18,12 @@ const isIE = () => {
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <NotificationsProvider>
-      <React.Fragment>
-        <GlobalStyles />
-        <Router>
-          <Main path="/" />
-        </Router>
-      </React.Fragment>
-    </NotificationsProvider>
+    <React.Fragment>
+      <GlobalStyles />
+      <Router>
+        <Main path="/" />
+      </Router>
+    </React.Fragment>
   </ThemeProvider>
 );
 
