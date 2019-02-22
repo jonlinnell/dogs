@@ -22,7 +22,7 @@ const BookingCheckForm = ({ setModalVisibility }) => {
     return (
       <ModalContent>
         <SectionTitle>{name}</SectionTitle>
-        <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
+        <p>
           You are registered for slot:
         </p>
         <p>
@@ -37,7 +37,7 @@ const BookingCheckForm = ({ setModalVisibility }) => {
     return (
       <ModalContent>
         <SectionTitle>Booking not found</SectionTitle>
-        <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
+        <p>
           Make sure you entered your email address properly (and that you booked
           a slot!)
         </p>

@@ -27,7 +27,7 @@ const BookingForm = ({ slot, handleSelect }) => {
         <p>
           {name} ({email})
         </p>
-        <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
+        <p>
           registered for slot
         </p>
         <p>
