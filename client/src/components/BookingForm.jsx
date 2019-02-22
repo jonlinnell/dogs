@@ -1,31 +1,75 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Formik } from 'formik';
 import axios from 'axios';
+import moment from 'moment';
 
 import Input from './Input';
 import Button from './Button';
 import InputLabel from './InputLabel';
 import InputError from './InputError';
-
-import { NotificationsConsumer } from './NotificationsContext';
+import CloseButton from './CloseButton';
+import SectionTitle from './SectionTitle';
 
 import readableError from '../helpers/readableError';
 
 const { API } = process.env;
 
-const Form = styled.form`
-  width: 320px;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const FormContainer = styled.div`
+  width: 90vh;
+  max-width: 320px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
+  animation: ${fadeIn} 0.2s ease-out both;
 `;
 
-const BookingForm = ({ slot, handleSelect }) => (
-  <NotificationsConsumer>
-    {({ addNotification }) => (
+const BookingForm = ({ slot, handleSelect }) => {
+  const [status, updateStatus] = useState({ type: '', content: '' });
+
+  if (status.type === 'success') {
+    const { name, email, slot } = status.content;
+    return (
+      <FormContainer>
+        <SectionTitle>Booking successful</SectionTitle>
+        <p>
+          {name} ({email})
+        </p>
+        <p style={{ fontSize: '0.9rem', fontWeight: 200 }}>
+          registered for slot
+        </p>
+        <p>
+          {moment(slot.start).format('HH mm')}
+          &nbsp;&mdash;&nbsp;
+          {moment(slot.end).format('HH mm')}
+        </p>
+        <CloseButton handleClose={handleSelect} />
+      </FormContainer>
+    );
+  } else if (status.type === 'error') {
+    return (
+      <FormContainer>
+        <SectionTitle>Error</SectionTitle>
+        <p>{readableError(status.content)}</p>
+        <CloseButton handleClose={handleSelect} />
+      </FormContainer>
+    );
+  } else {
+    return (
       <Formik
         initialValues={{ name: '', email: '', slot }}
         validate={values => {
@@ -49,16 +93,11 @@ const BookingForm = ({ slot, handleSelect }) => (
             .post(`${API}/bookings`, values)
             .then(response => {
               setSubmitting(false);
-              handleSelect();
-              addNotification(
-                "Booking successful! We'll send you a confirmation email before March 7th.",
-                'success'
-              );
+              updateStatus({ type: 'success', content: response.data });
             })
             .catch(error => {
               setSubmitting(false);
-              handleSelect();
-              addNotification(readableError(error), 'error');
+              updateStatus({ type: 'error', content: error });
             });
         }}
       >
@@ -71,51 +110,53 @@ const BookingForm = ({ slot, handleSelect }) => (
           handleSubmit,
           isSubmitting,
         }) => (
-          <Form onSubmit={handleSubmit}>
-            <InputLabel style={{ marginTop: '5vh' }} htmlFor="name">
-              Your Name
-              <Input
-                type="name"
-                name="name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-              />
-              <InputError>
-                {errors.name && touched.name && errors.name}
-              </InputError>
-            </InputLabel>
-            <InputLabel htmlFor="email">
-              Your Lboro email address
-              <Input
-                type="email"
-                name="email"
-                width="wide"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              <InputError>
-                {errors.email && touched.email && errors.email}
-              </InputError>
-            </InputLabel>
-            <input type="hidden" name="slot" value={slot} />
-            <Button
-              type="submit"
-              style={{ marginBottom: '30vh' }}
-              disabled={isSubmitting}
-            >
-              Submit
-            </Button>
-            <p>
-              This data is only used to verify your booking. Data will be erased
-              after the event.
-            </p>
-          </Form>
+          <FormContainer>
+            <form onSubmit={handleSubmit}>
+              <InputLabel style={{ marginTop: '5vh' }} htmlFor="name">
+                Your Name
+                <Input
+                  type="name"
+                  name="name"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                />
+                <InputError>
+                  {errors.name && touched.name && errors.name}
+                </InputError>
+              </InputLabel>
+              <InputLabel htmlFor="email">
+                Your Lboro email address
+                <Input
+                  type="email"
+                  name="email"
+                  width="wide"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                <InputError>
+                  {errors.email && touched.email && errors.email}
+                </InputError>
+              </InputLabel>
+              <input type="hidden" name="slot" value={slot} />
+              <Button
+                type="submit"
+                style={{ marginBottom: '30vh' }}
+                disabled={isSubmitting}
+              >
+                Submit
+              </Button>
+              <p>
+                This data is only used to verify your booking. Data will be
+                erased after the event.
+              </p>
+            </form>
+          </FormContainer>
         )}
       </Formik>
-    )}
-  </NotificationsConsumer>
-);
+    );
+  }
+};
 
 export default BookingForm;

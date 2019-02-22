@@ -10,7 +10,7 @@ const readbleError = error => {
         return "You're already booked! Contact the Student Services Office if you need to check your booking.";
       }
     } else if (typeof error.response.data.errors === 'object') {
-      return 'Validation error. Did you use a lboro.ac.uk email address?';
+      return "Looks like that email address isn't valid. Did you use a lboro.ac.uk email address?";
     }
     return 'Erm...';
   } else if (error.request) {

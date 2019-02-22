@@ -8,7 +8,7 @@ const Input = styled.input`
   padding: 12px;
   margin-top: 12px;
   outline: none;
-  width: ${({ width }) => (width === 'wide' ? '100%' : 'auto')};
+  width: ${({ width }) => (width === 'wide' ? '80%' : 'auto')};
 `;
 
 export default Input;
