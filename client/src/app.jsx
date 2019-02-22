@@ -32,11 +32,10 @@ const App = () => (
 );
 
 if (isIE()) {
-  const message = 'This is an old, unsupported browser.\nOpen this site on Google Chrome, or on your phone.'
+  const message =
+    'Sorry, this version of Internet Explorer is too old to run this site.\nYou can open this site on Google Chrome, or on your phone. 😊';
   document.getElementById('root').innerHTML = `<h1>${message}</h1>`;
-  alert(
-    message
-  );
+  alert(message);
 } else {
   render(<App />, document.getElementById('root'));
 }
