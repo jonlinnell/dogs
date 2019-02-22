@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BookingForm from './BookingForm';
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -26,16 +24,8 @@ const Modal = styled.div`
   justify-content: center;
 `;
 
-const BookingModal = ({ visible, slot, handleSelect }) => {
-  document.getElementById('root').scrollIntoView();
-
-  return (
-    <Modal visible={visible}>
-      {visible && slot ? (
-        <BookingForm handleSelect={handleSelect} slot={slot} />
-      ) : null}
-    </Modal>
-  );
-};
+const BookingModal = ({ visible, children }) => (
+  <Modal visible={visible}>{visible ? children : null}</Modal>
+);
 
 export default BookingModal;

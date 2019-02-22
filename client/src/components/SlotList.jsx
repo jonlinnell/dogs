@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Slot from './Slot';
-import BookingModal from './BookingModal';
+import Modal from './Modal';
+import BookingForm from './BookingForm';
 
 import SectionTitle from './SectionTitle';
 
@@ -91,11 +92,12 @@ export default class SlotList extends Component {
 
     return (
       <div>
-        <BookingModal
-          visible={!!selectedSlot}
-          slot={selectedSlot}
-          handleSelect={this.setSelectedSlot}
-        />
+        <Modal visible={!!selectedSlot}>
+          <BookingForm
+            slot={selectedSlot}
+            handleSelect={this.setSelectedSlot}
+          />
+        </Modal>
         <SectionTitle noMarginBottom>Available slots</SectionTitle>
         <p>Tap a slot to book</p>
         {hasError ? (
