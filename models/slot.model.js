@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const SlotSchema = {
+const SlotSchema = new Schema({
   start: {
     type: Date,
     required: true,
@@ -16,7 +16,11 @@ const SlotSchema = {
     required: true,
   },
   bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
-};
+});
+
+SlotSchema.post('findOneAndDelete', (slot, next) =>
+  slot.model('Booking').deleteMany({ slot: { $eq: slot._id } }, next)
+);
 
 const Slot = mongoose.model('Slot', SlotSchema);
 

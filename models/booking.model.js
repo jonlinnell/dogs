@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const BookingSchema = {
+const BookingSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -18,7 +18,17 @@ const BookingSchema = {
     unique: true,
   },
   slot: { type: Schema.Types.ObjectId, ref: 'Slot' },
-};
+});
+
+BookingSchema.post('findOneAndDelete', (booking, next) => {
+  booking
+    .model('Slot')
+    .updateOne(
+      { bookings: { $in: booking._id } },
+      { $pull: { bookings: booking._id } },
+      next
+    );
+});
 
 const Booking = mongoose.model('Booking', BookingSchema);
 
