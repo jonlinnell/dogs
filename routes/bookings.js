@@ -4,6 +4,7 @@ const createBooking = require('../helpers/bookings/createBooking');
 const deleteBooking = require('../helpers/bookings/deleteBooking');
 const findBookings = require('../helpers/bookings/findBookings');
 const findBookingsBySlot = require('../helpers/bookings/findBookingsBySlot');
+const findBookingByField = require('../helpers/bookings/findBookingByField');
 
 const verifyToken = require('../helpers/auth/verifyToken');
 
@@ -19,8 +20,14 @@ router.get('/', (req, res) =>
     .catch(error => res.status(500).send(error))
 );
 
+router.get('/byEmail/:email', (req, res) =>
+  findBookingByField('email', req.params.email, true)
+    .then(result => res.send(result))
+    .catch(error => res.status(500).send(error))
+);
+
 router.get('/:id', (req, res) =>
-  findBookings(req.params.id)
+  findBookingByField('_id', req.params.id)
     .then(result => res.send(result))
     .catch(error => res.status(500).send(error))
 );
