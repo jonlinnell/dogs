@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const express = require('express');
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const mongoose = require('mongoose');
 
 const permissions = require('./constants/permissions');
 
@@ -14,8 +17,16 @@ const slots = require('./routes/slots');
 const User = require('./models/user.model');
 const createUser = require('./helpers/auth/createUser');
 
-const { DB_HOST, DB_NAME, DEFAULT_ADMIN_PW } = process.env;
+const {
+  DB_HOST,
+  DB_NAME,
+  DEFAULT_ADMIN_PW,
+  NODE_ENV = 'development',
+  SSL_KEY,
+  SSL_CERT,
+} = process.env;
 
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors());
@@ -59,6 +70,21 @@ mongoose
     throw err;
   });
 
-app.listen(3000, () => {
-  console.log('Listening...');
+let server;
+
+if (NODE_ENV === 'production') {
+  server = https.createServer(
+    {
+      key: fs.readFileSync(SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(SSL_CERT, 'utf-8'),
+    },
+    app
+  );
+} else {
+  server = http.createServer(app);
+}
+
+server.listen(port);
+server.once('listening', () => {
+  console.log(`Listening on ${port} in ${NODE_ENV} mode.`);
 });
