@@ -10,7 +10,7 @@ import theme from './theme.json';
 
 import { NotificationsProvider } from './components/NotificationsContext';
 
-const Test = () => (
+const App = () => (
   <ThemeProvider theme={theme}>
     <NotificationsProvider>
       <React.Fragment>
@@ -23,4 +23,4 @@ const Test = () => (
   </ThemeProvider>
 );
 
-render(<Test />, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
