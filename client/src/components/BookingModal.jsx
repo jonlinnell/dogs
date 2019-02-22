@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import BookingForm from './BookingForm';
 
 const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
 
-  height: 100%;
+  min-height: 100vh;
   width: 100vw;
   z-index: 1;
 
@@ -27,6 +27,8 @@ const Modal = styled.div`
 `;
 
 const BookingModal = ({ visible, slot, handleSelect }) => {
+  document.getElementById('root').scrollIntoView();
+
   return (
     <Modal visible={visible}>
       {visible && slot ? (

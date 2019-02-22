@@ -48,7 +48,8 @@ const Slot = ({
 
 const StyledSlot = styled(Slot)`
   margin: 12px 0;
-  width: 320px;
+  width: 90vw;
+  max-width: 320px;
 `;
 
 const SlotButton = styled.button`

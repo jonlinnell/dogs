@@ -72,7 +72,7 @@ const BookingForm = ({ slot, handleSelect }) => (
           isSubmitting,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <InputLabel htmlFor="name">
+            <InputLabel style={{ marginTop: '5vh' }} htmlFor="name">
               Your Name
               <Input
                 type="name"
