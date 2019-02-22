@@ -1,7 +1,7 @@
 const Booking = require('../../models/booking.model');
 
 const findSlots = require('../../helpers/slots/findSlots');
-const findBookings = require('../../helpers/bookings/findBookings');
+const findBookingByField = require('../../helpers/bookings/findBookingByField');
 
 module.exports = request =>
   new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ module.exports = request =>
 
     findSlots(request.slot).then(slot => {
       if (slot) {
-        newBooking.save((err, result) => {
+        newBooking.save(err => {
           if (err) {
             reject(err);
           } else {
@@ -19,7 +19,7 @@ module.exports = request =>
                 reject(slotSaveErr);
               }
             });
-            findBookings(newBooking._id)
+            findBookingByField('_id', newBooking._id)
               .then(populatedNewBooking => resolve(populatedNewBooking))
               .catch(newBookingError => reject(newBookingError));
           }
