@@ -14,7 +14,7 @@ router.post('/', (req, res) =>
     .catch(error => res.status(500).send(error))
 );
 
-router.get('/', (req, res) =>
+router.get('/', verifyToken, (req, res) =>
   findBookings()
     .then(result => res.send(result))
     .catch(error => res.status(500).send(error))
