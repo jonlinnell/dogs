@@ -4,7 +4,7 @@ import SectionTitle from './SectionTitle';
 import Button from './Button';
 import Subtitle from './Subtitle';
 import Modal from './Modal';
-import BookingCheckForm from './BookingCheckForm'
+import BookingCheckForm from './BookingCheckForm';
 
 const BookingCheck = () => {
   const [visible, setVisibility] = useState(false);
@@ -29,7 +29,7 @@ const BookingCheck = () => {
       <Subtitle>
         If you know your email address, you can check your booking.
       </Subtitle>
-      <Button dark onClick={() => setVisibility(!visible)}>
+      <Button alternate onClick={() => setVisibility(!visible)}>
         Check
       </Button>
     </section>

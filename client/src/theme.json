@@ -1,8 +1,8 @@
 {
   "colours": {
-    "dark": "#46494C",
-    "primary": "#BFD7EA",
-    "primaryAlternate": "#C8D3D5",
-    "error": "#BF0040"
+    "primary": "#fcfcfc",
+    "secondary": "#9d785e",
+    "modalBackground": "#78a1b9",
+    "error": "#ff8282"
   }
 }

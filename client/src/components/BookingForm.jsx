@@ -25,8 +25,12 @@ const BookingForm = ({ slot, handleSelect }) => {
       <ModalContent>
         <SectionTitle noMarginTop>Booking successful</SectionTitle>
         <p>
-          {name} ({email})
-        </p>
+          {name}
+{' '}
+(
+{email}
+)
+</p>
         <p>registered for slot</p>
         <p>
           {moment(slot.start).format('HH mm')}
@@ -121,10 +125,11 @@ const BookingForm = ({ slot, handleSelect }) => {
                   style={{ marginBottom: '12px' }}
                   disabled={isSubmitting}
                   isDefault
+                  alternate
                 >
                   Book
                 </Button>
-                <Button type="button" onClick={handleSelect}>
+                <Button type="button" onClick={handleSelect} alternate>
                   Cancel
                 </Button>
               </ButtonArea>

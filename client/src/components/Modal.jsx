@@ -15,8 +15,8 @@ const Modal = styled.div`
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'all' : 'none')};
 
-  background-color: ${({ theme: { colours } }) => colours.primaryAlternate};
-  color: ${({ theme: { colours } }) => colours.dark};
+  background-color: ${({ theme: { colours } }) => colours.modalBackground};
+  color: ${({ theme: { colours } }) => colours.primary};
 
   display: flex;
   flex-direction: column;

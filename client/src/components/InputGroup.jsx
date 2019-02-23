@@ -7,7 +7,7 @@ const InputLabel = styled.label`
   align-items: center;
 
   background: none;
-  color: ${({ theme: { colours } }) => colours.dark};
+  color: ${({ theme: { colours } }) => colours.primary};
 `;
 
 export default InputLabel;
