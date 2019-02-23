@@ -5,6 +5,11 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 12pt;
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
 
   body {
