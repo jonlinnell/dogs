@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }) => theme.colours.dark};
+    background-color: ${({ theme }) => theme.colours.secondary};
     color: ${({ theme }) => theme.colours.primary};
     font-family: "Lato", sans-serif;
     text-align: center;

@@ -22,9 +22,7 @@ const BookingCheckForm = ({ setModalVisibility }) => {
     return (
       <ModalContent>
         <SectionTitle noMarginTop>{name}</SectionTitle>
-        <p>
-          You are registered for slot:
-        </p>
+        <p>You are registered for slot:</p>
         <p>
           {moment(slot.start).format('HH mm')}
           &nbsp;&mdash;&nbsp;
@@ -107,10 +105,15 @@ const BookingCheckForm = ({ setModalVisibility }) => {
                   style={{ marginBottom: '12px' }}
                   disabled={isSubmitting}
                   isDefault
+                  alternate
                 >
                   Check
                 </Button>
-                <Button type="button" onClick={() => setModalVisibility(false)}>
+                <Button
+                  type="button"
+                  onClick={() => setModalVisibility(false)}
+                  alternate
+                >
                   Cancel
                 </Button>
               </ButtonArea>
