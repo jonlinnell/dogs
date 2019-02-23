@@ -10,7 +10,6 @@ const verifyToken = require('../helpers/auth/verifyToken');
 const { SECRET } = process.env;
 
 router.get('/me', verifyToken, (req, res) => {
-  console.log(req.user);
   User.findById(
     req.user.id,
     'username permissions givenName',
