@@ -16,37 +16,7 @@ const Capacity = styled.p`
   text-decoration: ${({ full }) => (full ? 'line-through' : 'none')};
 `;
 
-const Slot = ({
-  _id,
-  start,
-  end,
-  capacity,
-  bookings,
-  className,
-  handleSelect,
-}) => {
-  const full = bookings.length >= capacity;
-
-  return (
-    <li className={className}>
-      <SlotButton
-        full={full}
-        onClick={e => (full ? null : handleSelect(e, _id))}
-      >
-        <Times>
-          {moment(start).format('HH mm')}
-          &nbsp;&mdash;&nbsp;
-          {moment(end).format('HH mm')}
-        </Times>
-        <Capacity full={full}>
-          {`${bookings.length || 0} / ${capacity}`}
-        </Capacity>
-      </SlotButton>
-    </li>
-  );
-};
-
-const StyledSlot = styled(Slot)`
+const StyledSlot = styled.li`
   margin: 12px 0;
   width: 90vw;
   max-width: 320px;
@@ -81,4 +51,32 @@ const SlotButton = styled.button`
   align-items: center;
 `;
 
-export default StyledSlot;
+export default ({
+  _id,
+  start,
+  end,
+  capacity,
+  bookings,
+  className,
+  handleSelect,
+}) => {
+  const full = bookings.length >= capacity;
+
+  return (
+    <StyledSlot>
+      <SlotButton
+        full={full}
+        onClick={e => (full ? null : handleSelect(e, _id))}
+      >
+        <Times>
+          {moment(start).format('HH mm')}
+          &nbsp;&mdash;&nbsp;
+          {moment(end).format('HH mm')}
+        </Times>
+        <Capacity full={full}>
+          {`${bookings.length || 0} / ${capacity}`}
+        </Capacity>
+      </SlotButton>
+    </StyledSlot>
+  );
+};
