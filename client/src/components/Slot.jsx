@@ -38,11 +38,13 @@ const SlotButton = styled.button`
 
   color: ${({ theme }) => theme.colours.primary};
 
-  &:hover {
-    color: ${({ theme, full }) =>
-      full ? theme.colours.primary : theme.colours.dark};
-    background-color: ${({ theme, full }) =>
-      full ? theme.colours.dark : theme.colours.primary};
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme, full }) =>
+        full ? theme.colours.primary : theme.colours.dark};
+      background-color: ${({ theme, full }) =>
+        full ? theme.colours.dark : theme.colours.primary};
+    }
   }
 
   @media (hover: none), (hover: on-demand) {
