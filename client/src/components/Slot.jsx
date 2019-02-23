@@ -45,6 +45,14 @@ const SlotButton = styled.button`
       full ? theme.colours.dark : theme.colours.primary};
   }
 
+  @media (hover: none), (hover: on-demand) {
+    &:hover,
+    &:active {
+      background-color: none;
+      color: ${({ theme }) => theme.colours.primary};
+    }
+  }
+
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
