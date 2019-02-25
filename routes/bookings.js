@@ -6,11 +6,21 @@ const findBookings = require('../helpers/bookings/findBookings');
 const findBookingsBySlot = require('../helpers/bookings/findBookingsBySlot');
 const findBookingByField = require('../helpers/bookings/findBookingByField');
 
+const sendEmail = require('../helpers/email/sendEmail');
+
 const verifyToken = require('../helpers/auth/verifyToken');
 
 router.post('/', (req, res) =>
   createBooking(req.body)
-    .then(result => res.send(result))
+    .then(result => {
+      const { name, email, slot } = result;
+
+      sendEmail({ name, email, slot })
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+
+      res.send(result);
+    })
     .catch(error => res.status(500).send(error))
 );
 

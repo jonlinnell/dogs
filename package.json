@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.409.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.10"
   },
   "devDependencies": {
