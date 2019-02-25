@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import axios from 'axios';
@@ -20,23 +22,17 @@ const BookingForm = ({ slot, handleSelect }) => {
   const [status, setStatus] = useState({ type: '', content: '' });
 
   if (status.type === 'success') {
-    const { name, email, slot } = status.content;
+    const { name, slot } = status.content;
     return (
       <ModalContent>
         <SectionTitle noMarginTop>Booking successful</SectionTitle>
         <p>
-          {name}
-{' '}
-(
-{email}
-)
-</p>
-        <p>registered for slot</p>
-        <p>
+          You&apos;re registered for slot&nbsp;
           {moment(slot.start).format('HH mm')}
           &nbsp;&mdash;&nbsp;
-          {moment(slot.end).format('HH mm')}
+          {moment(slot.end).format('HH mm')}.
         </p>
+        <p>See you there, {name}.</p>
         <CloseButton handleClose={handleSelect} />
       </ModalContent>
     );
