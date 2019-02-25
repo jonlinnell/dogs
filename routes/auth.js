@@ -37,7 +37,13 @@ router.post('/login', (req, res) => {
         {
           expiresIn: '12H',
         },
-        (err, token) => res.json({ authorised: true, token })
+        (err, token) =>
+          res.json({
+            authorised: true,
+            token,
+            username: existingUser.username,
+            givenName: existingUser.givenName,
+          })
       );
     } else {
       res.status(403).json({
