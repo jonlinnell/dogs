@@ -15,9 +15,15 @@ router.post('/', (req, res) =>
     .then(result => {
       const { name, email, slot } = result;
 
-      sendEmail({ name, email, slot })
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
+      if (process.env.AWS_ACCESS_KEY_ID) {
+        sendEmail({ name, email, slot })
+          .then(data =>
+            console.log(
+              `Sent email to ${email}. MessageId: ${data.MessageId}\n`
+            )
+          )
+          .catch(error => console.error(error));
+      }
 
       res.send(result);
     })
