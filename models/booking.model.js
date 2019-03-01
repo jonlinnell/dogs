@@ -11,7 +11,11 @@ const BookingSchema = new Schema({
     type: String,
     validate: {
       validator(v) {
-        return /.+@(student\.)?lboro\.ac\.uk/.test(v);
+        return (
+          /.+@(student\.)?lboro\.ac\.uk/.test(v) ||
+          /.+@lsu\.co\.uk/.test(v) ||
+          /.+@engie\.com/.test(v)
+        );
       },
       message: props => `${props.value} is not a valid email address!`,
     },
