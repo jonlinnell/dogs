@@ -16,6 +16,8 @@ const BookingSchema = new Schema({
       message: props => `${props.value} is not a valid email address!`,
     },
     unique: true,
+    lowercase: true,
+    trim: true,
   },
   slot: { type: Schema.Types.ObjectId, ref: 'Slot' },
 });
