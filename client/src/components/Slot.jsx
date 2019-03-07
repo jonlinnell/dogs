@@ -37,6 +37,10 @@ const StyledBookingList = styled.ul`
   }
 `;
 
+const StyledBooking = styled.li`
+  pointer-events: none;
+`;
+
 const BookingList = posed(StyledBookingList)({
   enter: {
     delayChildren: 50,
@@ -45,7 +49,7 @@ const BookingList = posed(StyledBookingList)({
   exit: {},
 });
 
-const Booking = posed.li({
+const Booking = posed(StyledBooking)({
   enter: {
     opacity: 1,
     y: 0,
