@@ -76,14 +76,14 @@ export default class SlotList extends Component {
 
   setSelectedSlot(e, id = null) {
     this.setState({ selectedSlot: id });
-    if (id === null) {
+    if (!id) {
       this.fetchData();
     }
   }
 
   handleKeyPress(e) {
     if (e.keyCode === 27) {
-      this.setSelectedSlot(null);
+      this.setSelectedSlot();
     }
   }
 

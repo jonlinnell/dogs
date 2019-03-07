@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+
+import posed, { PoseGroup } from 'react-pose';
+
+import authContext from '../helpers/authContext';
 
 const Times = styled.p`
   margin: 6px;
@@ -21,6 +25,36 @@ const StyledSlot = styled.li`
   width: 90vw;
   max-width: 320px;
 `;
+
+const StyledBookingList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+
+  & > li {
+    padding: 6px 12px;
+  }
+`;
+
+const BookingList = posed(StyledBookingList)({
+  enter: {
+    delayChildren: 50,
+    staggerChildren: 50,
+  },
+  exit: {},
+});
+
+const Booking = posed.li({
+  enter: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+  },
+});
 
 const SlotButton = styled.button`
   display: inline-block;
@@ -69,15 +103,24 @@ export default ({
   bookings,
   className,
   handleSelect,
+  adminSlotIsSelected,
 }) => {
-  const full = bookings.length >= capacity;
+  const { auth } = useContext(authContext);
+  const full = auth.auth ? false : bookings.length >= capacity;
+
+  let bookingElements;
+
+  if (adminSlotIsSelected) {
+    bookingElements = bookings.map(booking => (
+      <Booking key={booking._id} pose={adminSlotIsSelected ? 'enter' : 'exit'}>
+        {booking.name} ({booking.email})
+      </Booking>
+    ));
+  }
 
   return (
     <StyledSlot>
-      <SlotButton
-        full={full}
-        onClick={e => (full ? null : handleSelect(e, _id))}
-      >
+      <SlotButton full={full} onClick={full ? null : e => handleSelect(e, _id)}>
         <Times>
           {moment(start).format('HH mm')}
           &nbsp;&mdash;&nbsp;
@@ -87,6 +130,9 @@ export default ({
           {`${bookings.length || 0} / ${capacity}`}
         </Capacity>
       </SlotButton>
+      <BookingList pose={adminSlotIsSelected ? 'enter' : 'exit'}>
+        <PoseGroup>{bookingElements}</PoseGroup>
+      </BookingList>
     </StyledSlot>
   );
 };

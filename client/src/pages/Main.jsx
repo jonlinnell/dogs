@@ -8,6 +8,7 @@ import Link from '../components/Link';
 import PageTitle from '../components/PageTitle';
 import Section from '../components/Section';
 import SlotList from '../components/SlotList';
+import DetailedSlotList from '../components/DetailedSlotList';
 import Subtitle from '../components/Subtitle';
 
 import authContext from '../helpers/authContext';
@@ -50,9 +51,8 @@ const Main = () => {
         </Subtitle>
         <Emoji>🐶 ❤️</Emoji>
       </Section>
-      <SlotList />
+      {auth.auth ? <DetailedSlotList /> : <SlotList />}
       <BookingCheck />
-      {auth.username ? <p>Logged in.</p> : null}
       <Footer />
     </Container>
   );
