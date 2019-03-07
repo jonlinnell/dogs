@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Formik } from 'formik';
-import axios from 'axios';
-import moment from 'moment';
 
 import Input from './Input';
 import Button from './Button';
@@ -13,8 +11,6 @@ import ModalContent from './ModalContent';
 import ButtonArea from './ButtonArea';
 
 import authContext from '../helpers/authContext';
-
-const { API } = process.env;
 
 const BookingCheckForm = ({ setModalVisibility }) => {
   const [status, setStatus] = useState({ type: '', content: '' });

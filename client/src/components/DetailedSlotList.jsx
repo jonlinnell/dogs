@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { get } from 'lodash';
@@ -6,7 +6,6 @@ import { get } from 'lodash';
 import Button from './Button';
 import Slot from './Slot';
 
-import authContext from '../helpers/authContext';
 import withAuthHeaders from '../helpers/withAuthHeaders';
 
 const { API } = process.env;
@@ -18,7 +17,6 @@ const StyledSlotList = styled.ul`
 `;
 
 const DetailedSlotList = () => {
-  const { auth } = useContext(authContext);
   const [slots, setSlots] = useState([]);
   const [error, setError] = useState(false);
   const [selectedDetailedSlot, setSelectedDetailedSlot] = useState();
