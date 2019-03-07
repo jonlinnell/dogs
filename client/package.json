@@ -15,6 +15,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint": "^5.14.1",
@@ -32,7 +33,9 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "formik": "^1.5.1",
+    "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "react": "^16.8.2",
