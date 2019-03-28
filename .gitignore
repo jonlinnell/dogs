@@ -1,3 +1,7 @@
-node_modules
-certs/*
+.cache
+.DS_Store
 .env
+certs
+config.json
+dist
+node_modules
