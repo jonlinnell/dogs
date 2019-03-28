@@ -1,14 +1,18 @@
 {
   "name": "slotbook",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.9.0",
+  "description": "AKA Dogs. A slot-booking app with user email confirmation and admin view, built in React.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "server:lint": "eslint .",
+    "lint": "yarn server:lint && yarn client:lint",
+    "test": "yarn lint",
+    "client:build": "parcel build client/src/index.html --out-dir client/dist",
     "client:lint": "eslint --no-ignore -c client/.eslintrc --ext js --ext jsx client/src",
     "client:start": "parcel serve client/src/index.html",
-    "client:build": "parcel build client/src/index.html --out-dir client/dist"
+    "client:test": "yarn client:lint",
+    "server:lint": "eslint .",
+    "server:test": "yarn server:lint"
   },
   "keywords": [],
   "author": "Jon Linnell",
