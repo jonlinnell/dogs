@@ -60,6 +60,7 @@
   },
   "prettier": {
     "trailingComma": "es5",
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 100
   }
 }

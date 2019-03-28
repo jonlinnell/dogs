@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import BookingCheck from '../components/BookingCheck';
-import Emoji from '../components/Emoji';
 import Footer from '../components/Footer';
 import Link from '../components/Link';
 import PageTitle from '../components/PageTitle';
@@ -30,12 +29,12 @@ const Main = () => {
       <Section>
         <PageTitle>Doggy De-Stress</PageTitle>
         <Subtitle>
-          Take 15 minutes out of your day to enjoy some time with a group of
-          friendly and cuddly dogs.
+          Take 15 minutes out of your day to enjoy some time with a group of friendly and cuddly
+          dogs.
         </Subtitle>
         <Subtitle>
-          There are only 10 places available per slot, so please book your place
-          in advance to avoid disappointment.
+          There are only 10 places available per slot, so please book your place in advance to avoid
+          disappointment.
         </Subtitle>
         <Subtitle>LDN.017, Thursday 7th March 2019</Subtitle>
         <Subtitle>
@@ -49,7 +48,9 @@ const Main = () => {
           </Link>
           .
         </Subtitle>
-        <Emoji>🐶 ❤️</Emoji>
+        <span style={{ fontSize: '1.7rem' }} role="img" aria-label="Dog love heart emoji">
+          🐶 ❤️
+        </span>
       </Section>
       {auth.auth ? <DetailedSlotList /> : <SlotList />}
       <BookingCheck />

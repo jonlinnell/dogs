@@ -78,8 +78,7 @@ const SlotButton = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      color: ${({ theme, full }) =>
-        full ? theme.colours.primary : theme.colours.secondary};
+      color: ${({ theme, full }) => (full ? theme.colours.primary : theme.colours.secondary)};
       background-color: ${({ theme, full }) =>
         full ? theme.colours.secondary : theme.colours.primary};
     }
@@ -99,16 +98,7 @@ const SlotButton = styled.button`
   align-items: center;
 `;
 
-export default ({
-  _id,
-  start,
-  end,
-  capacity,
-  bookings,
-  className,
-  handleSelect,
-  adminSlotIsSelected,
-}) => {
+export default ({ _id, start, end, capacity, bookings, handleSelect, adminSlotIsSelected }) => {
   const { auth } = useContext(authContext);
   const full = auth.auth ? false : bookings.length >= capacity;
 
@@ -130,9 +120,7 @@ export default ({
           &nbsp;&mdash;&nbsp;
           {moment(end).format('HH mm')}
         </Times>
-        <Capacity full={full}>
-          {`${bookings.length || 0} / ${capacity}`}
-        </Capacity>
+        <Capacity full={full}>{`${bookings.length || 0} / ${capacity}`}</Capacity>
       </SlotButton>
       <BookingList pose={adminSlotIsSelected ? 'enter' : 'exit'}>
         <PoseGroup>{bookingElements}</PoseGroup>

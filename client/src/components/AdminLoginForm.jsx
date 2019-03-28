@@ -25,7 +25,9 @@ const BookingCheckForm = ({ setModalVisibility }) => {
         <CloseButton handleClose={() => setModalVisibility(false)} />
       </ModalContent>
     );
-  } else if (status.type === 'error') {
+  }
+
+  if (status.type === 'error') {
     return (
       <ModalContent>
         <SectionTitle noMarginTop>Login Error</SectionTitle>
@@ -33,98 +35,82 @@ const BookingCheckForm = ({ setModalVisibility }) => {
         <CloseButton handleClose={() => setModalVisibility(false)} />
       </ModalContent>
     );
-  } else {
-    return (
-      <Formik
-        initialValues={{ username: '', password: '' }}
-        validate={values => {
-          let errors = {};
-          if (!values.username) {
-            errors.username = 'You must enter a username.';
-          }
-
-          if (!values.password) {
-            errors.password = 'You must enter a password.';
-          }
-
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          login(values, (error, data) => {
-            setSubmitting(false);
-
-            if (error) {
-              setStatus({
-                type: 'error',
-                content: error,
-              });
-            } else {
-              setStatus({ type: 'success', content: data });
-            }
-          });
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <ModalContent>
-            <form onSubmit={handleSubmit}>
-              <InputGroup htmlFor="username">
-                Username
-                <Input
-                  type="text"
-                  name="username"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.username}
-                />
-                <InputError>
-                  {errors.username && touched.email && errors.username}
-                </InputError>
-              </InputGroup>
-              <InputGroup htmlFor="password">
-                Password
-                <Input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                />
-                <InputError>
-                  {errors.password && touched.email && errors.password}
-                </InputError>
-              </InputGroup>
-              <ButtonArea>
-                <Button
-                  type="submit"
-                  style={{ marginBottom: '12px' }}
-                  disabled={isSubmitting}
-                  isDefault
-                  alternate
-                >
-                  Login
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => setModalVisibility(false)}
-                  alternate
-                >
-                  Close
-                </Button>
-              </ButtonArea>
-            </form>
-          </ModalContent>
-        )}
-      </Formik>
-    );
   }
+
+  return (
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      validate={values => {
+        const errors = {};
+        if (!values.username) {
+          errors.username = 'You must enter a username.';
+        }
+
+        if (!values.password) {
+          errors.password = 'You must enter a password.';
+        }
+
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        login(values, (error, data) => {
+          setSubmitting(false);
+
+          if (error) {
+            setStatus({
+              type: 'error',
+              content: error,
+            });
+          } else {
+            setStatus({ type: 'success', content: data });
+          }
+        });
+      }}
+    >
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        <ModalContent>
+          <form onSubmit={handleSubmit}>
+            <InputGroup htmlFor="username">
+              Username
+              <Input
+                type="text"
+                name="username"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
+              />
+              <InputError>{errors.username && touched.email && errors.username}</InputError>
+            </InputGroup>
+            <InputGroup htmlFor="password">
+              Password
+              <Input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+              />
+              <InputError>{errors.password && touched.email && errors.password}</InputError>
+            </InputGroup>
+            <ButtonArea>
+              <Button
+                type="submit"
+                style={{ marginBottom: '12px' }}
+                disabled={isSubmitting}
+                isDefault
+                alternate
+              >
+                Login
+              </Button>
+              <Button type="button" onClick={() => setModalVisibility(false)} alternate>
+                Close
+              </Button>
+            </ButtonArea>
+          </form>
+        </ModalContent>
+      )}
+    </Formik>
+  );
 };
 
 export default BookingCheckForm;

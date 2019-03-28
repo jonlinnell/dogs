@@ -45,6 +45,13 @@ export default class SlotList extends Component {
     document.removeEventListener('keydown', this.handleKeyPress, false);
   }
 
+  setSelectedSlot(e, id = null) {
+    this.setState({ selectedSlot: id });
+    if (!id) {
+      this.fetchData();
+    }
+  }
+
   fetchData() {
     this.setState({
       fetching: true,
@@ -70,15 +77,9 @@ export default class SlotList extends Component {
         this.setState({
           hasError: true,
           error: error.response.body,
+          fetching: false,
         })
       );
-  }
-
-  setSelectedSlot(e, id = null) {
-    this.setState({ selectedSlot: id });
-    if (!id) {
-      this.fetchData();
-    }
   }
 
   handleKeyPress(e) {
@@ -93,14 +94,11 @@ export default class SlotList extends Component {
     return (
       <section>
         <Modal visible={!!selectedSlot}>
-          <BookingForm
-            slot={selectedSlot}
-            handleSelect={this.setSelectedSlot}
-          />
+          <BookingForm slot={selectedSlot} handleSelect={this.setSelectedSlot} />
         </Modal>
         <SectionTitle noMarginBottom>Available slots</SectionTitle>
         <p>Tap a slot to book</p>
-        {hasError ? (
+        {!fetching && hasError ? (
           <div>
             <h5>Error Zone</h5>
             {hasError ? <pre>{error}</pre> : <p>No errors</p>}
@@ -108,11 +106,7 @@ export default class SlotList extends Component {
         ) : (
           <StyledSlotList>
             {slots.map(slot => (
-              <Slot
-                {...slot}
-                handleSelect={this.setSelectedSlot}
-                key={slot._id}
-              >
+              <Slot {...slot} handleSelect={this.setSelectedSlot} key={slot._id}>
                 {slot.start}
               </Slot>
             ))}

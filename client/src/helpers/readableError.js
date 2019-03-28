@@ -12,15 +12,16 @@ const readbleError = error => {
       return "Looks like that email address isn't valid. Did you use a lboro.ac.uk email address?";
     }
     return 'Erm...';
-  } else if (error.request) {
+  }
+
+  if (error.request) {
     // The request was made but no response was received
     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
     // http.ClientRequest in node.js
     return 'Communication error with server.';
-  } else {
-    // Something happened in setting up the request that triggered an Error
-    return "An error occurred. That's all I know really.";
   }
+  // Something happened in setting up the request that triggered an Error
+  return "An error occurred. That's all I know really.";
 };
 
 export default readbleError;

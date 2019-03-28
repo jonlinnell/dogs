@@ -26,9 +26,7 @@ const BookingCheck = () => {
         <BookingCheckForm setModalVisibility={setVisibility} />
       </Modal>
       <SectionTitle>Check my booking</SectionTitle>
-      <Subtitle>
-        If you know your email address, you can check your booking.
-      </Subtitle>
+      <Subtitle>If you know your email address, you can check your booking.</Subtitle>
       <Button alternate onClick={() => setVisibility(!visible)}>
         Check
       </Button>

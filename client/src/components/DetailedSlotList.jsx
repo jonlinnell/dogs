@@ -31,16 +31,13 @@ const DetailedSlotList = () => {
 
   const fetchSlots = async () => {
     try {
-      const response = await axios.get(
-        `${API}/slots/details`,
-        withAuthHeaders()
-      );
+      const response = await axios.get(`${API}/slots/details`, withAuthHeaders());
 
       if (response.data) {
         setSlots(response.data);
       }
-    } catch (error) {
-      setError(get(error, 'response.data.message', 'Error'));
+    } catch (fetchError) {
+      setError(get(fetchError, 'response.data.message', 'Error'));
     }
   };
 
@@ -55,20 +52,20 @@ const DetailedSlotList = () => {
         <Button onClick={fetchSlots}>Try again</Button>
       </div>
     );
-  } else {
-    return (
-      <StyledSlotList>
-        {slots.map(slot => (
-          <Slot
-            key={slot._id}
-            adminSlotIsSelected={selectedDetailedSlot === slot._id}
-            handleSelect={toggleSelectedSlot}
-            {...slot}
-          />
-        ))}
-      </StyledSlotList>
-    );
   }
+
+  return (
+    <StyledSlotList>
+      {slots.map(slot => (
+        <Slot
+          key={slot._id}
+          adminSlotIsSelected={selectedDetailedSlot === slot._id}
+          handleSelect={toggleSelectedSlot}
+          {...slot}
+        />
+      ))}
+    </StyledSlotList>
+  );
 };
 
 export default DetailedSlotList;

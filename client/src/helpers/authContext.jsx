@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
           givenName: action.payload.givenName,
           ...decodedToken,
         };
-        break;
       }
       case 'clear':
         return {
@@ -29,20 +28,14 @@ const AuthProvider = ({ children }) => {
           username: '',
           permissions: [],
         };
-        break;
       default:
         return state;
-        break;
     }
   }, {});
 
   const login = async (credentials, cb) => {
     try {
-      const response = await axios.post(
-        `${API}/auth/login`,
-        credentials,
-        withAuthHeaders()
-      );
+      const response = await axios.post(`${API}/auth/login`, credentials, withAuthHeaders());
 
       if (get(response.data, 'authorised', false)) {
         localStorage.setItem('token', response.data.token);
