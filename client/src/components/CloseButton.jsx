@@ -10,10 +10,10 @@ const CloseButton = styled.button`
   font-size: 32px;
   font-weight: 100;
 
-  color: ${({ theme: { colours } }) => colours.dark};
+  color: ${({ theme: { colours } }) => colours.primary};
 `;
 
-export default ({ handleClose, children }) => (
+export default ({ handleClose }) => (
   <CloseButton type="button" onClick={handleClose}>
     X
   </CloseButton>

@@ -1,14 +1,11 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Section = styled.section`
-  width: 90vw;
-  max-width: 30rem;
-
+const ButtonArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20vh;
 `;
 
-export default Section;
+export default ButtonArea;

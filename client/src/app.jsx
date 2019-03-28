@@ -1,4 +1,5 @@
-import React from 'react';
+import 'babel-polyfill';
+import React, { useContext } from 'react';
 import { render } from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { Router } from '@reach/router';
@@ -6,6 +7,7 @@ import { Router } from '@reach/router';
 import Main from './pages/Main';
 
 import GlobalStyles from './helpers/GlobalStyle';
+import authContext, { AuthProvider } from './helpers/authContext';
 import theme from './theme.json';
 
 const isIE = () => {
@@ -16,16 +18,20 @@ const isIE = () => {
   return msie > 0 || trident > 0;
 };
 
-const App = () => (
-  <ThemeProvider theme={theme}>
-    <React.Fragment>
-      <GlobalStyles />
-      <Router>
-        <Main path="/" />
-      </Router>
-    </React.Fragment>
-  </ThemeProvider>
-);
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <React.Fragment>
+        <GlobalStyles />
+        <AuthProvider>
+          <Router>
+            <Main path="/" />
+          </Router>
+        </AuthProvider>
+      </React.Fragment>
+    </ThemeProvider>
+  );
+};
 
 if (isIE()) {
   const message =

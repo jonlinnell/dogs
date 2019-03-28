@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Slot from './Slot';
-import BookingModal from './BookingModal';
+import Modal from './Modal';
+import BookingForm from './BookingForm';
 
 import SectionTitle from './SectionTitle';
 
@@ -75,14 +76,14 @@ export default class SlotList extends Component {
 
   setSelectedSlot(e, id = null) {
     this.setState({ selectedSlot: id });
-    if (id === null) {
+    if (!id) {
       this.fetchData();
     }
   }
 
   handleKeyPress(e) {
     if (e.keyCode === 27) {
-      this.setSelectedSlot(null);
+      this.setSelectedSlot();
     }
   }
 
@@ -90,12 +91,13 @@ export default class SlotList extends Component {
     const { fetching, selectedSlot, hasError, error, slots } = this.state;
 
     return (
-      <div>
-        <BookingModal
-          visible={!!selectedSlot}
-          slot={selectedSlot}
-          handleSelect={this.setSelectedSlot}
-        />
+      <section>
+        <Modal visible={!!selectedSlot}>
+          <BookingForm
+            slot={selectedSlot}
+            handleSelect={this.setSelectedSlot}
+          />
+        </Modal>
         <SectionTitle noMarginBottom>Available slots</SectionTitle>
         <p>Tap a slot to book</p>
         {hasError ? (
@@ -116,7 +118,7 @@ export default class SlotList extends Component {
             ))}
           </StyledSlotList>
         )}
-      </div>
+      </section>
     );
   }
 }

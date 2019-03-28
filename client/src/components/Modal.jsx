@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BookingForm from './BookingForm';
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -17,8 +15,8 @@ const Modal = styled.div`
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'all' : 'none')};
 
-  background-color: ${({ theme: { colours } }) => colours.primaryAlternate};
-  color: ${({ theme: { colours } }) => colours.dark};
+  background-color: ${({ theme: { colours } }) => colours.modalBackground};
+  color: ${({ theme: { colours } }) => colours.primary};
 
   display: flex;
   flex-direction: column;
@@ -26,16 +24,8 @@ const Modal = styled.div`
   justify-content: center;
 `;
 
-const BookingModal = ({ visible, slot, handleSelect }) => {
-  document.getElementById('root').scrollIntoView();
-
-  return (
-    <Modal visible={visible}>
-      {visible && slot ? (
-        <BookingForm handleSelect={handleSelect} slot={slot} />
-      ) : null}
-    </Modal>
-  );
-};
+const BookingModal = ({ visible, children }) => (
+  <Modal visible={visible}>{visible ? children : null}</Modal>
+);
 
 export default BookingModal;

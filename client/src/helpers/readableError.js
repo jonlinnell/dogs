@@ -2,12 +2,11 @@ const readbleError = error => {
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
-    console.log(error.response.data);
     if (error.response.data.errmsg) {
       const { errmsg } = error.response.data;
 
       if (/email_1 dup key/.test(errmsg)) {
-        return "You're already booked! Contact the Student Services Office if you need to check your booking.";
+        return "You're already booked! You can check your booking on the main page.";
       }
     } else if (typeof error.response.data.errors === 'object') {
       return "Looks like that email address isn't valid. Did you use a lboro.ac.uk email address?";

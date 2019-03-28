@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+
+import posed, { PoseGroup } from 'react-pose';
+
+import authContext from '../helpers/authContext';
 
 const Times = styled.p`
   margin: 6px;
@@ -16,41 +20,45 @@ const Capacity = styled.p`
   text-decoration: ${({ full }) => (full ? 'line-through' : 'none')};
 `;
 
-const Slot = ({
-  _id,
-  start,
-  end,
-  capacity,
-  bookings,
-  className,
-  handleSelect,
-}) => {
-  const full = bookings.length >= capacity;
-
-  return (
-    <li className={className}>
-      <SlotButton
-        full={full}
-        onClick={e => (full ? null : handleSelect(e, _id))}
-      >
-        <Times>
-          {moment(start).format('HH mm')}
-          &nbsp;&mdash;&nbsp;
-          {moment(end).format('HH mm')}
-        </Times>
-        <Capacity full={full}>
-          {`${bookings.length || 0} / ${capacity}`}
-        </Capacity>
-      </SlotButton>
-    </li>
-  );
-};
-
-const StyledSlot = styled(Slot)`
+const StyledSlot = styled.li`
   margin: 12px 0;
   width: 90vw;
   max-width: 320px;
 `;
+
+const StyledBookingList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+
+  & > li {
+    padding: 6px 12px;
+  }
+`;
+
+const StyledBooking = styled.li`
+  pointer-events: none;
+`;
+
+const BookingList = posed(StyledBookingList)({
+  enter: {
+    delayChildren: 50,
+    staggerChildren: 50,
+  },
+  exit: {},
+});
+
+const Booking = posed(StyledBooking)({
+  enter: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+  },
+});
 
 const SlotButton = styled.button`
   display: inline-block;
@@ -68,11 +76,21 @@ const SlotButton = styled.button`
 
   color: ${({ theme }) => theme.colours.primary};
 
-  &:hover {
-    color: ${({ theme, full }) =>
-      full ? theme.colours.primary : theme.colours.background};
-    background-color: ${({ theme, full }) =>
-      full ? theme.colours.background : theme.colours.primary};
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme, full }) =>
+        full ? theme.colours.primary : theme.colours.secondary};
+      background-color: ${({ theme, full }) =>
+        full ? theme.colours.secondary : theme.colours.primary};
+    }
+  }
+
+  @media (hover: none), (hover: on-demand) {
+    &:hover,
+    &:active {
+      background-color: none;
+      color: ${({ theme }) => theme.colours.primary};
+    }
   }
 
   display: flex;
@@ -81,4 +99,44 @@ const SlotButton = styled.button`
   align-items: center;
 `;
 
-export default StyledSlot;
+export default ({
+  _id,
+  start,
+  end,
+  capacity,
+  bookings,
+  className,
+  handleSelect,
+  adminSlotIsSelected,
+}) => {
+  const { auth } = useContext(authContext);
+  const full = auth.auth ? false : bookings.length >= capacity;
+
+  let bookingElements;
+
+  if (adminSlotIsSelected) {
+    bookingElements = bookings.map(booking => (
+      <Booking key={booking._id} pose={adminSlotIsSelected ? 'enter' : 'exit'}>
+        {booking.name} ({booking.email})
+      </Booking>
+    ));
+  }
+
+  return (
+    <StyledSlot>
+      <SlotButton full={full} onClick={full ? null : e => handleSelect(e, _id)}>
+        <Times>
+          {moment(start).format('HH mm')}
+          &nbsp;&mdash;&nbsp;
+          {moment(end).format('HH mm')}
+        </Times>
+        <Capacity full={full}>
+          {`${bookings.length || 0} / ${capacity}`}
+        </Capacity>
+      </SlotButton>
+      <BookingList pose={adminSlotIsSelected ? 'enter' : 'exit'}>
+        <PoseGroup>{bookingElements}</PoseGroup>
+      </BookingList>
+    </StyledSlot>
+  );
+};
