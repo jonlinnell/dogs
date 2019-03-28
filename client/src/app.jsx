@@ -32,7 +32,7 @@ const App = () => (
           </AuthProvider>
         )
         : (
-          <div style={{ height: '100vh', textAlign: 'center', margin: '20vh 10vw' }}>
+          <div style={{ height: '100vh', textAlign: 'center', padding: '20vh 10vw' }}>
             <h1>App not configured.</h1>
             <p><span style={{ fontFamily: 'Courier New'}}>process.env.API</span> isn't set. Set this environment variable and reload/rebuild the app.</p>
           </div>
